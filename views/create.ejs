@@ -1,0 +1,53 @@
+<%- include("partials/header.ejs") %>
+
+<section id="createContainer">
+    <div class="add-container" >
+        <h2>Your words matter - share your book journey with us!</h2>
+
+        <form action="/addReview" method="post" class="new-book" autocomplete="off">
+            
+            <div class="add-star" >
+                <label style="color: black;">Rate:</label>
+                <span class="star" data-value="0">&#9733;</span>
+                <span class="star" data-value="1">&#9733;</span>
+                <span class="star" data-value="2">&#9733;</span>
+                <span class="star" data-value="3">&#9733;</span>
+                <span class="star" data-value="4">&#9733;</span>
+            </div>
+            <input type="hidden" name="rating" value="0" >
+            
+            <input type="text" placeholder="Isbn number" class="input-field isbn"   name="isbn"        required>
+            <input type="text" placeholder="Title" class="input-field title"        name="title"       required>
+            <input type="text" placeholder="Author" class="input-field author"      name="author"     >
+            <input type="text" placeholder="How would you summarize this book in a word?" class="input-field summary" name="summary" >
+            <textarea placeholder="Express your full review here..." class="input-field text-area" name="fullReview" ></textarea>
+            
+            <button type="submit" class="sub-btn">SUBMIT</button>
+        </form>
+    </div>
+</section>
+
+<%- include("partials/footer.ejs") %>
+
+<script>
+    
+    const stars= document.querySelectorAll('.star');
+    const ratingValue= document.querySelector('input[name="rating"]');
+    
+    stars.forEach(star => {
+        star.addEventListener('click',function(){
+            const rating= this.getAttribute('data-value');
+            ratingValue.value= rating;
+           
+            stars.forEach(star=> star.classList.remove('selected'));
+            
+            const index= Array.from(stars).indexOf(this);
+            for(i=0; i<=index; i++){
+                stars[i].classList.add("selected");
+            }
+            
+        });
+    });
+    
+    
+</script>

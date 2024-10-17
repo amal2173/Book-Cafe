@@ -1,0 +1,110 @@
+<%- include("partials/header.ejs") %>
+
+<section>
+    <div class="book-nos">
+        <p>Number of Books: <%= numberOfBooks %></p>
+    </div>
+    <% if(books.length>0){ %>
+    <% books.forEach(book => {%>
+    <div class="review-container"  id="reviewContainer">
+        <div class="review-box">
+            <div id="book">
+                <img src="<%= book.img_path  %>" alt="book cover" id="book-img"  >
+                <div class="more-icons">
+
+                    <button class="icon-btn" id="edit-icon"onclick="handler();" ><svg xmlns="http://www.w3.org/2000/svg"  width="25" height="25" fill="blue" class="bi bi-pencil edit-icon" viewBox="0 0 16 16">
+                        <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
+                    </svg></button>
+
+                    <button  class="icon-btn" id="update-icon" hidden><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="green" class="bi bi-check2-circle update-icon" viewBox="0 0 16 16">
+                        <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0"/>
+                        <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z"/>
+                    </svg></button>
+                    <form action="/delete" method="post">
+                        <button  class="icon-btn" id="delete-icon" onchange="this.form.submit()" name="delete" value="<%= book.id %>"><svg xmlns="http://www.w3.org/2000/svg" width="25"  height="25" fill="red" class="bi bi-trash dlte-icon" viewBox="0 0 16 16">
+                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                            <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                        </svg></button>   
+                    </form>
+                </div> 
+            </div>
+        <div class="review-content">
+            <p class="review-heading"><%= book.title %></p>
+            <p class="review-author"><%= book.author %></p>
+            <div class="more-star">
+                <%for(i=0;i<=4;i++){%>
+                <span class="star <%= (i<=book.rating) ? "selected" : " " %> " data-value=<%= i %>>&#9733;</span>
+                <%}%>
+            </div>
+                <p class="date-review"><%= new Date().toLocaleDateString()%></p>
+                <p class="review-scnd-head"><%= book.summary %></p>
+                <p id="moreReview"><%= book.review %></p>
+            </div>  
+        </div>
+    </div>
+</section>
+
+<div class="add-container" id="addContainer" hidden>
+
+    <form action="/updateReview" method="post" class="new-book">
+        
+        <div class="add-star">
+            <label style="color: black;">Rate:</label>
+            <span class="star" data-value="0">&#9733;</span>
+            <span class="star" data-value="1">&#9733;</span>
+            <span class="star" data-value="2">&#9733;</span>
+            <span class="star" data-value="3">&#9733;</span>
+            <span class="star" data-value="4">&#9733;</span>
+        </div>
+        <input type="hidden" name="rating" value="<%= book.rating %>" >
+        <input type="hidden" name="currentBookId" value="<%= book.id %>">
+        <input type="text" placeholder="isbn number" class="input-field isbn"   name="isbn"  value="<%= book.isbn %>"      required>
+        <input type="text" placeholder="title" class="input-field title"        name="title" value="<%= book.title %>"      required>
+        <input type="text" placeholder="author" class="input-field author"      name="author" value="<%= book.author %>"    >
+        <input type="text" placeholder="How would you summarize this book in a sentence?" class="input-field summary" name="summary" value="<%= book.summary %>" >
+        <textarea placeholder="Express your full review here..." class="input-field text-area" name="fullReview" ><%= book.review %></textarea>
+        <button type="submit" class="sub-btn">SAVE</button>
+    </form>
+</div>
+<%});%>
+<% } else { %>
+<div id="notFound">
+    <p><span id="error">Error: Book Not Found</span> <br>
+        The book you're searching for cannot be found. Please check the title try again.
+    </p>
+</div>
+<% } %>
+
+</section>
+ 
+<%- include("partials/footer.ejs") %>
+<script>
+ 
+
+ function handler() {
+    document.getElementById("reviewContainer").style.display="none";
+    document.getElementById("addContainer").hidden=false;
+}
+  
+
+const stars= document.querySelectorAll('.star');
+const ratingValue= document.querySelector('input[name="rating"]');
+    
+    stars.forEach(star => {
+        star.addEventListener('click',function(){
+            const rating= this.getAttribute('data-value');
+            ratingValue.value= rating;
+           
+            stars.forEach(star=> star.classList.remove('selected'));
+            
+            const index= Array.from(stars).indexOf(this);
+            for(i=0; i<=index; i++){
+                stars[i].classList.add("selected");
+            }
+            
+        });
+    });
+
+</script>
+
+   

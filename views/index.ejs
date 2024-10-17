@@ -1,0 +1,58 @@
+
+<%- include("partials/header.ejs") %>
+
+
+<section id="home-container-1">
+    <div id="hero-section">
+        <div class="hero-content">
+            
+            <h1>Sip, Read, Review at Book Cafe!</h1>
+            <p>Like a great cup of coffee, a book is meant to be enjoyed  and shared.
+                At Book Cafe, find your next read or share your thoughts with fellow 
+                book lovers.</p>
+            <form action="/search" method="post" class="search-form" autocomplete="off">
+                <input type="text" name="searchbook"  placeholder="BOOK TITLE..." class="search-input">
+                <button type="submit" class="search-button">SEARCH</button>
+            </form>
+        </div>    
+
+        <div class="hero-img">
+            <img src="/assets/images/Untitled_design-removebg.png" alt="a girl reading book" class="hero-img">
+        </div>
+           
+    </div>
+</section>
+
+<section id="home-container-2">
+    <a href="/reviews"><h2>Review Corner</h2></a> 
+    <ul class="sort">
+        <p>Sort by:</p>
+        <a href="/asc" class="sort-link">Title (A-Z), </a> 
+        <a href="/latestBook" class="sort-link">Latest,</a>
+        <a href="/bestBook" class="sort-link">Best:</a> 
+    </ul>
+    
+    <div id="book-container">
+        <% books.forEach(book => { %>
+        <div class="book-box">
+            <div class="book">
+                <img src="<%= book.img_path %>" alt="book cover image" class="book-img">
+            </div>
+             <div class="book-content">
+                <p class="book-name"> <%= book.title %> </p>
+                <p class="book-author"> <%= book.author %> </p>
+                <div class="more-star"  id="starRating">
+                    <% for(var i=0;i<=4;i++){%>
+                    <span class="star <%= (i<=book.rating) ? "selected" : " " %>" data-value="<%= i %>">&#9733;</span>
+                    <% } %>
+                </div>    
+                    
+                <a href="/moreReview/<%= book.id %>"><button class="more-btn">View Review</button></a>
+                    
+            </div> 
+        </div>   
+        <%   });  %>
+    </div>
+</section>
+<%-include("partials/footer.ejs")  %>
+
