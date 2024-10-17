@@ -143,19 +143,19 @@ async function getbookCover(isbnNumber) {
         if(response.data.items && response.data.items.length > 0) {
             const data = response.data.items[0];
         
-            let img_path= "/images/noimage.jpeg";
+            let img_path= "/assets/images/noimage.jpeg";
              
             const api_img= data.volumeInfo.imageLinks && data.volumeInfo.imageLinks.thumbnail ?
             data.volumeInfo.imageLinks.thumbnail : null ;
 
-            return img_path= api_img || "/images/noimage.jpeg";
+            return img_path= api_img || "/assets/images/noimage.jpeg";
         }else{
-            return "/images/noimage.jpeg";
+            return "/assets/images/noimage.jpeg";
         }
         
     } catch (error) {
         console.log(error);
-        return "/images/noimage.jpeg"; 
+        return "/assets/images/noimage.jpeg"; 
     }
 }
 
