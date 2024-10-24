@@ -469,7 +469,7 @@ ul>p{
         display: flex;
         flex-direction: column;
         height: 500px;
-        width: 100%;
+        width: auto;
         padding: 30px;
     }
     .hero-img{
@@ -483,7 +483,7 @@ ul>p{
         height: 50px;
     }
     #home-container-1{
-
+        width: auto;
         margin-top: 10%;
     }
     
@@ -521,6 +521,8 @@ ul>p{
         padding: 6%;
         margin-top: 15%;
         height: auto;
+        
+        width: auto;
     }
     #book{
         display: flex;
@@ -563,6 +565,7 @@ ul>p{
     }
      .add-container{
         height: 100vh;
+
     }
     
     #footer-border{
