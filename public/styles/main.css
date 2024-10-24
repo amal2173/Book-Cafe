@@ -557,7 +557,14 @@ ul>p{
         width: 100%;
 
     }
-   
+    #home-container-1{
+        height: 100vh;
+        margin-top: 10%;
+    }
+     .add-container{
+        height: 100vh;
+    }
+    
     #footer-border{
         width: 100%;
     }
