@@ -483,9 +483,11 @@ ul>p{
         height: 50px;
     }
     #home-container-1{
-        height: 100vh;
+
         margin-top: 10%;
     }
+    
+    
     #hero-section .hero-content p{
         margin-top: 10%;
         margin-bottom: 10%;
@@ -555,10 +557,7 @@ ul>p{
         width: 100%;
 
     }
-    .add-container{
-        height: 100vh;
-    }
-    
+   
     #footer-border{
         width: 100%;
     }
